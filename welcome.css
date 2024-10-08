@@ -1,0 +1,120 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #00e59a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.welcome-screen {
+    text-align: center;
+    position: fixed;
+}
+
+
+
+#running-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+   position:relative;
+    bottom:50%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.btn {
+    display: block;
+    margin:  0 auto;
+    padding: 10px 20px;
+    font-size: 50px;
+    font-weight: bold;
+    background-color: #000000;
+    color: #00e59a;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    position: relative;
+    bottom: 20%; 
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    position:fixed;
+}
+
+.btn:hover {
+    
+    box-shadow: 0 0 10px rgba(0, 10, 10, 10); 
+    
+}
+/* Responsif untuk perangkat mobile */
+@media (min-width: 320px) and (max-width: 767px) {
+    body {
+        background-image: url('./assets/bg-phone.png'); 
+    }
+    #running-text {
+        font-size: 14px; /* Ukuran font lebih kecil untuk layar ponsel */
+        bottom: 10%; /* Menyesuaikan posisi teks di bagian bawah */
+    }
+
+    
+    .btn {
+        font-size: 12px; /* Ukuran font tombol lebih kecil untuk layar ponsel */
+        bottom: 25%; /* Menyesuaikan posisi tombol di bagian bawah */
+    }
+}
+
+
+/* Responsif untuk perangkat sedang (tablet) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    body {
+        background-image: url('./assets/ws-tab.png'); 
+    }
+    #rotating-img {
+        width: 30%; /* Ukuran gambar lebih kecil untuk layar tablet */
+    }
+    #running-text {
+        font-size: 40px; /* Ukuran font sedang untuk layar tablet */
+        font-weight: bold;
+        bottom: 50px; /* Menyesuaikan posisi teks di bagian bawah */
+    }
+    .btn {
+        font-size: 35px; /* Ukuran font tombol lebih kecil untuk layar tablet */
+        bottom: 40%; /* Menyesuaikan posisi tombol di bagian bawah */
+        font-family: 'Montserrat';
+    }
+}
+
+/* Responsif untuk perangkat besar (laptop dan desktop) */
+@media (min-width: 1025px) {
+    body {
+        background-image: url('./assets/ws-bg.png'); 
+    }
+    #running-text {
+        font-size: 24px; /* Ukuran font besar untuk layar laptop dan desktop */
+        bottom: -45px; /* Menyesuaikan posisi teks di bagian bawah */
+        position: relative;
+        font-weight: bold;
+    }
+    
+    .btn {
+        font-size: 18px; /* Ukuran font tombol besar untuk layar laptop dan desktop */
+        bottom: -90px; /* Menyesuaikan posisi tombol di bagian bawah */
+        position: relative;
+        font-weight: bold;
+    }
+}

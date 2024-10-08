@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>#KeepItSimple</title>
+  <link rel="shortcut icon" href="./assets/favicon.png" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #e5e5e5;
+      margin: 0;
+    }
+
+    .chatbot {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* Ensure no overflow */
+    }
+
+    header {
+      text-align: center;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .teks {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .chatbox {
+      list-style: none;
+      padding: 0;
+      overflow-y: auto;
+      height: 300px;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .chat {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .incoming {
+      flex-direction: row;
+    }
+
+    .profile-info {
+      margin-right: 10px;
+    }
+
+    .profile-img {
+      width: 40px;
+      border-radius: 50%;
+      border: 2px solid #4CAF50; /* Profile image border */
+    }
+
+    .message {
+      background-color: #e0f7e0; /* Lighter green */
+      border-radius: 10px;
+      padding: 10px;
+      max-width: 70%;
+      word-wrap: break-word;
+      position: relative; /* For positioning pseudo-element */
+    }
+
+    .message::after {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 10px;
+      width: 10px;
+      height: 10px;
+      background-color: #e0f7e0;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      align-items: center;
+      background-color: #f9f9f9;
+    }
+
+    textarea {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+      outline: none; /* Remove outline on focus */
+    }
+
+    #send-btn {
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #4CAF50;
+      transition: color 0.3s; /* Transition effect */
+    }
+
+    #send-btn:hover {
+      color: #388E3C; /* Darker green on hover */
+    }
+
+    .preloader {
+      display: none; /* Hide the preloader by default */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .circle {
+      border: 5px solid #4CAF50;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      border-top: 5px solid transparent;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="preloader" data-preloader>
+    <div class="circle"></div>
+  </div>
+  <div class="chatbot">
+    <header>
+      <img class="teks" src="./assets/teks.png" alt="Teks Judul">
+    </header>
+
+    <ul class="chatbox" id="chat-history">
+      <li class="chat incoming">
+        <div class="profile-info">
+          <img class="profile-img" src="./assets/profilep.png" alt="Profile Image">
+        </div>
+        <div class="message">
+          <p>Halo semua, aku Sandy Mahasiswa UNY 👋<br>mau nanya apa?</p>
+        </div>
+      </li>
+    </ul>
+    
+    <div class="chat-input">
+      <textarea id="user-input" placeholder="Silahkan bertanya disini" spellcheck="false" required></textarea>
+      <span id="send-btn" class="material-symbols-rounded" onclick="sendMessage()">send</span>
+    </div>
+  </div>
+
+  <script>
+    const chatHistory = document.getElementById('chat-history');
+    const userInput = document.getElementById('user-input');
+
+    async function sendMessage() {
+      const userMessage = userInput.value;
+      if (!userMessage.trim()) return; // Prevent sending empty messages
+      userInput.value = ''; // Clear input field
+
+      // Show preloader
+      const preloader = document.querySelector('.preloader');
+      preloader.style.display = 'block';
+
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userInput: userMessage }),
+        });
+
+        const data = await response.json();
+        const botMessage = data.response;
+
+        // Add user and bot messages to the chat history
+        chatHistory.innerHTML += `
+          <li class="chat incoming">
+            <div class="profile-info">
+              <img class="profile-img" src="./assets/profilep.png" alt="Profile Image">
+            </div>
+            <div class="message">
+              <p>${userMessage}</p>
+            </div>
+          </li>
+          <li class="chat incoming">
+            <div class="profile-info">
+              <img class="profile-img" src="./assets/profilep.png" alt="Profile Image">
+            </div>
+            <div class="message">
+              <p>${botMessage}</p>
+            </div>
+          </li>
+        `;
+
+        // Scroll to the bottom of the chat history
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        // Hide preloader
+        preloader.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

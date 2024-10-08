@@ -1,0 +1,346 @@
+/* Import Google font - Font Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", poppins;
+}
+body {
+  
+  background-image: url(./assets/bgg.png);
+  background-size: cover;
+}
+
+/* CSS untuk loader */
+.loader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader img {
+  width: 100px; 
+  height: 100px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+.chatbot-toggler {
+  position: fixed;
+  bottom: 30px;
+  right: 35px;
+  outline: none;
+  border: none;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #724ae8;
+  transition: all 0.2s ease;
+}
+body.show-chatbot .chatbot-toggler {
+  transform: rotate(90deg);
+}
+.chatbot-toggler span {
+  color: #fff;
+  position: absolute;
+}
+.chatbot-toggler span:last-child,
+body.show-chatbot .chatbot-toggler span:first-child  {
+  opacity: 0;
+}
+body.show-chatbot .chatbot-toggler span:last-child {
+  opacity: 1;
+}
+/* Example CSS modifications */
+.chatbot {
+  display: block;
+  position: fixed;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 80%;
+  max-width: 600px;
+  height: 80%; 
+  max-height: 80vh; 
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background-image: url(./assets/BG.jpg);
+  
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hide close button initially */
+.close-btn {
+  display: none;
+}
+
+body.show-chatbot .chatbot {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+.judul {
+  font-weight:bold;
+}
+.chatbot header {
+  padding: 16px 0;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  background: #000000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.chatbot header span {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  display: none;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.profile-img {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  top: 50px;
+}
+
+.chatbot .chatbox {
+  overflow-y: auto;
+  height: calc(100% - 120px); 
+  padding: 30px 20px 100px;
+}
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 25px;
+}
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 25px;
+}
+.profile-info {
+  flex-shrink: 0; 
+  margin-right: 10px; 
+ 
+}
+
+.chatbox {
+  list-style-type: none; 
+  padding: 0;
+  margin: 0;
+}
+.chatbox .chat {
+  display: flex;
+  list-style: none;
+}
+.chat.outgoing .profile-info .material-symbols-outlined {
+  display: none;
+}
+
+
+.chatbox .outgoing {
+  margin: 20px 0;
+  justify-content: flex-end;
+}
+
+/* Style untuk welcome screen */
+body.welcome-screen {
+  margin: 0;
+  padding: 0;
+}
+
+.welcome-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.rotate-img {
+  width: 200px; 
+  animation: spin 2s linear infinite; 
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.running-text {
+  font-size: 20px; 
+  color: white;
+  margin-top: 20px; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  animation: marquee 5s linear infinite; 
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--eerie-black);
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  transition: var(--transition-2);
+  transition-delay: 0.5s;
+}
+
+.preloader.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader .circle {
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--raisin-black);
+  border-top-color: var(--white);
+  border-radius: var(--radius-circle);
+  animation: rotate360 1s linear infinite;
+  transition: var(--transition-2);
+}
+
+@keyframes rotate360 {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(1turn); }
+}
+
+.preloader.loaded .circle { opacity: 0; }
+
+
+.chat.incoming {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px; 
+}
+.chatbox .incoming span {
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  cursor: default;
+  text-align: center;
+  line-height: 32px;
+  align-self: flex-end;
+  background: #075e54;
+  border-radius: 4px;
+  margin: 0 10px 7px 0;
+}
+.chatbox .chat p {
+  white-space: pre-wrap;
+  padding: 12px 16px;
+  border-radius: 10px 10px 0 10px;
+  max-width: 75%;
+  color: #fff;
+  font-size: 0.95rem;
+  background: #075e54;
+}
+.chatbox .incoming p {
+  border-radius: 10px 10px 10px 0;
+}
+.chatbox .chat p.error {
+  color: #721c24;
+  background: #f8d7da;
+}
+.chatbox .incoming p {
+  color: #000;
+  background: #f2f2f2;
+}
+.chatbot .chat-input {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  padding: 3px 20px;
+  border-top: 1px solid #ddd;
+}
+.chat-input textarea {
+  height: 55px;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  max-height: 180px;
+  padding: 15px 15px 15px 0;
+  font-size: 0.95rem;
+}
+.chat-input span {
+  align-self: flex-end;
+  color: #075e54;
+  cursor: pointer;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+  font-size: 1.35rem;
+}
+.chat-input textarea:valid ~ span {
+  visibility: visible;
+}
+
+.message p {
+  background-color: #ae0000; 
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%; 
+}
+@media (max-width: 490px) {
+  .chatbot-toggler {
+    right: 20px;
+    bottom: 20px;
+  }
+  .chatbot {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: none;
+    height: 90%;
+    max-height: none;
+  }
+  .chatbot .chatbox {
+    height: calc(100% - 120px);
+    padding: 25px 15px 100px;
+  }
+  .chatbot .chat-input {
+    padding: 5px 15px;
+  }
+  .chatbot header span {
+    display: block;
+  }
+}
+
